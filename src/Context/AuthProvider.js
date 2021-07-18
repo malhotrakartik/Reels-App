@@ -5,7 +5,7 @@ export const AuthContext = React.createContext(); //creating a context
 
 function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState();
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     function signUp(email, password) {
         return auth.createUserWithEmailAndPassword(email, password);
     }
@@ -15,16 +15,16 @@ function AuthProvider({ children }) {
     function logOut() {
         return auth.signOut();
     }
-    // useEffect(() => {
-    //     const unsubscribe = auth.onAuthStateChanged((user) => {
-    //         //mount hone pr bta dega ki user present hai ya nahi
-    //         setCurrentUser(user);
-            // setLoading(false);
-    //     });
-    //     return () => {
-    //         unsubscribe();
-    //     };
-    // }, []);
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged((user) => {
+            //mount hone pr bta dega ki user present hai ya nahi
+            setCurrentUser(user);
+            setLoading(false);
+        });
+        return () => {
+            unsubscribe();
+        };
+    }, []);
     const value = {
         //ye saare functions bnakr context me daal diye taaki iske children me yhi se use krle waha na likhne pde
         currentUser,
