@@ -1,6 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../Context/AuthProvider";
 import { storage, database } from "../firebase";
+import { Grid,Paper, Avatar, TextField, Button, Typography,Link } from '@material-ui/core'
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Image from '../Images/background.jpeg'
 function SignUp() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -52,7 +57,9 @@ function SignUp() {
                 })
             }
             setLoading(false);
-        } catch (err) { }
+        } catch (err) {
+            console.log(err);
+         }
     };
     const handleFileSubmit = (e) => {
         let file = e.target.files[0];
@@ -60,46 +67,35 @@ function SignUp() {
             setFile(file);
         }
     };
-    return (
-        <div>
-            <form onSubmit={handleSignup}>
-                <div>
-                    <label htmlFor="">UserName</label>
-                    <input
-                        type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="">Email</label>
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="">Password</label>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="profile">Profile Image</label>
-                    <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleFileSubmit}
-                    ></input>
-                </div>
-                <button type="submit" disabled={loading}>
-                    Login
-                </button>
-            </form>
-        </div>
-    );
+
+    const paperStyle={padding :20,height:'70vh',width:280, margin:"0px auto"}
+    const avatarStyle={backgroundColor:'#1bbd7e'}
+    const btnstyle={margin:'20px 0'}
+    const gridStyle = {
+        backgroundImage : `url(${Image})`,
+        height : '90vh',
+        width : '100vw',
+        marginTop : '0',
+        paddingTop : '40px',
+        backgroundSize : 'cover'
+    }
+    return(
+        <Grid style = {gridStyle}>
+            <Paper elevation={10} style={paperStyle}>
+                <Grid align='center'>
+                     <Avatar style={avatarStyle}><LockOutlinedIcon/></Avatar>
+                    <h2>Sign Up</h2>
+                </Grid>
+                <TextField label='Name' type = "text" value = {name}  onChange={(e) => setName(e.target.value)}  fullWidth required/>
+                <TextField label='Username' type = "email" value = {email}  onChange={(e) => setEmail(e.target.value)} fullWidth required/>
+                <TextField label='Password' value = {password} type='password' onChange={(e) => setPassword(e.target.value)} fullWidth required/>
+                <TextField label='Profile Image'  accept="image/*" type='file' onChange={handleFileSubmit} fullWidth required/>
+               
+                <Button type='submit' color='primary' variant="contained" onClick = {handleSignup} style={btnstyle} fullWidth>Sign Up</Button>
+               
+            </Paper>
+        </Grid>
+    )
+   
 }
 export default SignUp;
