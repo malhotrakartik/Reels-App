@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../Context/AuthProvider";
+import { useHistory } from 'react-router-dom';     //used in moving to different route
 import { storage, database } from "../firebase";
 import { Grid,Paper, Avatar, TextField, Button, Typography,Link } from '@material-ui/core'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Image from '../Images/background.jpeg'
+
 function SignUp() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -14,6 +16,8 @@ function SignUp() {
     const [loading, setLoading] = useState(false);
     const { signUp } = useContext(AuthContext);
     const [file, setFile] = useState(null);
+    const history = useHistory()
+    const {currentUser} =useContext(AuthContext);
     // console.log(signup);
     const handleSignup = async (e) => {
         e.preventDefault();
@@ -57,6 +61,7 @@ function SignUp() {
                 })
             }
             setLoading(false);
+            history.push('/');
         } catch (err) {
             console.log(err);
          }
@@ -68,19 +73,26 @@ function SignUp() {
         }
     };
 
+    useEffect(()=>{
+          if(currentUser){
+              history.push('/')
+          }
+    },[])
+
     const paperStyle={padding :20,height:'70vh',width:280, margin:"0px auto"}
     const avatarStyle={backgroundColor:'#1bbd7e'}
     const btnstyle={margin:'20px 0'}
     const gridStyle = {
+        boxSizing : 'border-box',
         backgroundImage : `url(${Image})`,
-        height : '90vh',
+        height : '100vh',
         width : '100vw',
         marginTop : '0',
         paddingTop : '40px',
         backgroundSize : 'cover'
     }
     return(
-        <Grid style = {gridStyle}>
+        <div style = {gridStyle}>
             <Paper elevation={10} style={paperStyle}>
                 <Grid align='center'>
                      <Avatar style={avatarStyle}><LockOutlinedIcon/></Avatar>
@@ -94,7 +106,7 @@ function SignUp() {
                 <Button type='submit' color='primary' variant="contained" onClick = {handleSignup} style={btnstyle} fullWidth>Sign Up</Button>
                
             </Paper>
-        </Grid>
+        </div>
     )
    
 }

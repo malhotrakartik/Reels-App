@@ -10,6 +10,7 @@ function AuthProvider({ children }) {
         return auth.createUserWithEmailAndPassword(email, password);
     }
     function logIn(email, password) {
+        console.log(email,password)
         return auth.signInWithEmailAndPassword(email, password);
     }
     function logOut() {
