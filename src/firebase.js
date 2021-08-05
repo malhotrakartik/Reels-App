@@ -18,6 +18,7 @@ firebase.initializeApp({
   export const database ={
     users:firestore.collection('users'),
     posts : firestore.collection('posts'),
+    comments:firestore.collection('comments'),
     getCurrentTimeStamp : firebase.firestore.FieldValue.serverTimestamp
 }
 export const storage = firebase.storage();        //for storing physical data like images videos etc
