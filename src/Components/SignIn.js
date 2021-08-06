@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';     //used in moving to different
 import {AuthContext} from '../Context/AuthProvider';
 import { Grid,Paper, Avatar, TextField, Button, Typography,Link } from '@material-ui/core'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Image from '../Images/background.jpeg'
 
 
 function SignIn() {
@@ -32,6 +33,11 @@ function SignIn() {
           setLoading(false)
          
         }
+      }
+
+      const moveToSignUp = (e) => {
+             console.log("clicked");
+             history.push('/signup');
       }
       useEffect(()=>{
         if(currentUser)
@@ -64,6 +70,7 @@ function SignIn() {
                 <TextField label='Password' value = {password} type='password' onChange={(e) => setPassword(e.target.value)} fullWidth required/>
                
                 <Button type='submit' color='primary' variant="contained" onClick = {handleSubmit} style={btnstyle} fullWidth>Sign In</Button>
+                <div style = {{color : "blue" , fontWeight : "bold",cursor : "pointer"}} onClick = {moveToSignUp} >Don't have an account ? Sign Up</div>
                
             </Paper>
         </div>

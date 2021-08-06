@@ -72,6 +72,9 @@ function SignUp() {
             setFile(file);
         }
     };
+    const moveToSignIn = (e) => {
+        history.push('/signin');
+    }
 
     useEffect(()=>{
           if(currentUser){
@@ -104,6 +107,8 @@ function SignUp() {
                 <TextField label='Profile Image'  accept="image/*" type='file' onChange={handleFileSubmit} fullWidth required/>
                
                 <Button type='submit' color='primary' variant="contained" onClick = {handleSignup} style={btnstyle} fullWidth>Sign Up</Button>
+                <div style = {{color : "blue" , fontWeight : "bold",cursor : "pointer"}} onClick = {moveToSignIn} >Already have an account ? Sign In</div>
+
                
             </Paper>
         </div>
