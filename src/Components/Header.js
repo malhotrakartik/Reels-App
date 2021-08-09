@@ -14,6 +14,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { useContext } from 'react';
 import {AuthContext} from '../Context/AuthProvider';
+import MyProfile from './MyProfile';
+import { useHistory } from 'react-router-dom';     //used in moving to different route
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,13 +29,13 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   navbar:{
-      backgroundColor : "blue"
+      backgroundColor : 'rgba(var(--i1d,38,38,38),1)'
   }
 }));
 
 function Header() {
   const classes = useStyles();
-  
+  const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const {logOut} =useContext(AuthContext);
@@ -44,6 +47,10 @@ function Header() {
 
   const handleLogout = async (e) => {
         await logOut();
+  }
+
+  const handleProfile = (e) => {
+       history.push('/profile');
   }
 
   const handleClose = () => {
@@ -64,7 +71,7 @@ function Header() {
                 <IconButton onClick = {handleLogout}>
                     <ExitToAppRoundedIcon style = {{backgroundColor : "#fff"}}/>
                 </IconButton>
-              <IconButton
+              {/* <IconButton
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
@@ -72,8 +79,12 @@ function Header() {
                 color="inherit"
               >
                 <AccountCircle />
+              </IconButton> */}
+              <IconButton onClick = {handleProfile}>
+                    <AccountCircle style = {{color : "#fff"}}/>
               </IconButton>
-              <Menu
+              
+              {/* <Menu
                 id="menu-appbar"
                 anchorEl={anchorEl}
                 anchorOrigin={{
@@ -91,7 +102,7 @@ function Header() {
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
                 
-              </Menu>
+              </Menu> */}
             </div>
           )}
         </Toolbar>
